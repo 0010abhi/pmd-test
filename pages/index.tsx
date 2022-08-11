@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
+import BlogCard from "../components/BlogCard";
 
 const Home: NextPage = () => {
   const [data, setdata] = useState<any>([]);
@@ -44,10 +45,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.grid}>
-          {data &&
-            (data.firstPageArticles || []).map((datum: any, index: number) => (
-              <div key={index}>{datum.id}</div>
-            ))}
+          {data && <BlogCard data={data.firstPageArticles || []} />}
         </div>
       </main>
 
@@ -65,6 +63,15 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+};
+
+export const getStaticProps = async () => {
+  const data = await fetch(
+    "https://jsonplaceholder.typicode.com/todos?_limit=10"
+  ).then((response) => response.json());
+  return {
+    props: { data }
+  };
 };
 
 export default Home;
