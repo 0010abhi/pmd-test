@@ -53,44 +53,43 @@ export default function BlogCard(props: { data: any; newData: any }) {
   }, [props.newData]);
 
   return (
-    <div>
-      <InfiniteScroll
-        dataLength={posts.length}
-        next={getMorePost}
-        hasMore={hasMore}
-        loader={<h3> Loading...</h3>}
-        endMessage={<h4>Nothing more to show</h4>}
-      >
-        {(posts || []).map((datum: any, index: number) => (
-          <Card
-            className={styles.blogCard}
-            raised
-            // id={datum.id}
-            key={index}
-            // sx={{ maxWidth: 345 }}
-          >
-            {/* <CardMedia
-             component="img"
-             height="140"
-             image="/static/images/cards/contemplative-reptile.jpg"
-             alt="green iguana"
-           /> */}
-            {/* <URLImage url={datum.url} /> */}
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {datum.title}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {datum.text}
-              </Typography>
-            </CardContent>
-            {/* <CardActions>
+    <InfiniteScroll
+      dataLength={posts.length}
+      next={getMorePost}
+      hasMore={hasMore}
+      loader={<h3> Loading...</h3>}
+      endMessage={<h4>Nothing more to show</h4>}
+      style={{ backgroundColor: "#fff" }}
+    >
+      {(posts || []).map((datum: any, index: number) => (
+        <Card
+          className={styles.blogCard}
+          style={{ marginBottom: "25px" }}
+          // id={datum.id}
+          key={index}
+          // sx={{ maxWidth: 345 }}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image="/images/pmd-test-card.png"
+            alt="test card image"
+          />
+          {/* <URLImage url={datum.url} /> */}
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {datum.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {datum.text}
+            </Typography>
+          </CardContent>
+          {/* <CardActions>
              <Button size="small">Share</Button>
              <Button size="small">Learn More</Button>
            </CardActions> */}
-          </Card>
-        ))}
-      </InfiniteScroll>
-    </div>
+        </Card>
+      ))}
+    </InfiniteScroll>
   );
 }
