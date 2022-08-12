@@ -1,11 +1,16 @@
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import URLImage from "./URLImage";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-export default function BlogCard(props: { data: any }) {
+export default function BlogCard(props: { data: any; newData: any }) {
   const [posts, setPosts] = useState(props.data);
   const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -38,6 +43,14 @@ export default function BlogCard(props: { data: any }) {
     }
   }
 
+  useEffect(() => {
+    console.log("props.newData", props.newData);
+    if (Object.keys(props.newData).length > 0) {
+      const data = props.newData;
+      setPosts([...posts, ...[data]]);
+    }
+  }, [props.newData]);
+
   return (
     <div>
       <InfiniteScroll
@@ -48,16 +61,31 @@ export default function BlogCard(props: { data: any }) {
         endMessage={<h4>Nothing more to show</h4>}
       >
         {(posts || []).map((datum: any, index: number) => (
-          <div id={datum.id} style={{ height: "50px" }} key={index}>
-            {datum.author}
-            {datum.createdAt}
-            {datum.score}
-            {datum.updatedAt}
-            {datum.title}
-            {datum.text}
-            {datum.type}
+          <Card
+            // id={datum.id}
+            key={index}
+            // sx={{ maxWidth: 345 }}
+          >
+            {/* <CardMedia
+             component="img"
+             height="140"
+             image="/static/images/cards/contemplative-reptile.jpg"
+             alt="green iguana"
+           /> */}
             {/* <URLImage url={datum.url} /> */}
-          </div>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {datum.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {datum.text}
+              </Typography>
+            </CardContent>
+            {/* <CardActions>
+             <Button size="small">Share</Button>
+             <Button size="small">Learn More</Button>
+           </CardActions> */}
+          </Card>
         ))}
       </InfiniteScroll>
     </div>

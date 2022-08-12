@@ -3,38 +3,27 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import BlogCard from "../components/BlogCard";
 import CreateArticle from "../components/CreateArticle";
+import { FIRST_PAGE_QUERY } from "../queries/firstPageArticles";
 
 const Home: NextPage = () => {
   const [data, setdata] = useState<any>([]);
+  const [newData, setNewData] = useState<any>({});
   useEffect(() => {
     async function getData() {
-      const { data } = await client.query({
-        query: gql`
-          query {
-            firstPageArticles {
-              id
-              author
-              createdAt
-              score
-              updatedAt
-              title
-              text
-              type
-              url
-            }
-          }
-        `,
-      });
+      const { data } = await client.query({ query: FIRST_PAGE_QUERY });
       console.log("data", data);
       setdata(data);
     }
     getData();
     return () => {};
   }, []);
+
+  function appendData(newData: any) {
+    setNewData(newData);
+  }
 
   return (
     <div className={styles.container}>
@@ -46,9 +35,9 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.grid}>
-          {data && <BlogCard data={data.firstPageArticles || []} />}
+          {data && <BlogCard newData={newData} data={data.firstPageArticles || []} />}
         </div>
-        <CreateArticle />
+        <CreateArticle appendData={appendData} />
       </main>
 
       <footer className={styles.footer}>
@@ -65,15 +54,6 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
-};
-
-export const getStaticProps = async () => {
-  const data = await fetch(
-    "https://jsonplaceholder.typicode.com/todos?_limit=10"
-  ).then((response) => response.json());
-  return {
-    props: { data }
-  };
 };
 
 export default Home;
