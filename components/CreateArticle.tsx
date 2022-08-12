@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
@@ -60,6 +60,7 @@ export default function CreateArticle(props: any) {
   function appendData() {
     // TODO: validate data here before submit.
     props.appendData(newData);
+    handleClose();
   }
 
   return (
@@ -84,7 +85,7 @@ export default function CreateArticle(props: any) {
         <DialogContent>
           {CreateArticleFormMetadata.map((metdata, index) => {
             return metdata.type === "file" ? (
-              <>
+              <React.Fragment key={index}>
                 <div style={{ margin: "15px 0px", color: "#666" }}>
                   <label>Image</label>
                 </div>
@@ -92,7 +93,7 @@ export default function CreateArticle(props: any) {
                   Upload
                   <input hidden accept="image/*" multiple type="file" />
                 </Button>
-              </>
+              </React.Fragment>
             ) : (
               <TextField
                 key={index}

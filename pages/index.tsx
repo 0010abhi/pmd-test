@@ -70,7 +70,10 @@ export default function Home() {
             </div>
           </div>
         </header>
-        <main className={styles.main}>
+        <main
+          className={styles.main}
+          style={{ backgroundColor: darkTheme.cardColor }}
+        >
           <div className={styles.grid}>
             {data && (
               <BlogCard newData={newData} data={data.firstPageArticles || []} />

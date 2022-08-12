@@ -46,7 +46,11 @@ export default function BlogCard(props: { data: any; newData: any }) {
     console.log("props.newData", props.newData);
     if (Object.keys(props.newData).length > 0) {
       const data = props.newData;
-      setPosts([...posts, ...[data]]);
+      setPosts([...[data], ...posts]);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
   }, [props.newData]);
 
@@ -64,7 +68,7 @@ export default function BlogCard(props: { data: any; newData: any }) {
           {(posts || []).map((datum: any, index: number) => (
             <Card
               className={styles.blogCard}
-              style={{ marginBottom: "25px", backgroundColor: cardColor }}
+              style={{ marginBottom: "25px", backgroundColor: "#fff" }}
               // id={datum.id}
               key={index}
               // sx={{ maxWidth: 345 }}
@@ -84,10 +88,6 @@ export default function BlogCard(props: { data: any; newData: any }) {
                   {datum.text}
                 </Typography>
               </CardContent>
-              {/* <CardActions>
-             <Button size="small">Share</Button>
-             <Button size="small">Learn More</Button>
-           </CardActions> */}
             </Card>
           ))}
         </InfiniteScroll>
@@ -95,7 +95,3 @@ export default function BlogCard(props: { data: any; newData: any }) {
     </ThemeContext.Consumer>
   );
 }
-
-// BlogCard.contextType = ThemeContext;
-
-// export default BlogCard;
