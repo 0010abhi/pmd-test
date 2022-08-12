@@ -38,7 +38,7 @@ export default function CreateArticle(props: any) {
   const [newData, setNewData] = useState<any>({
     title: "",
     url: "",
-    desc: "",
+    text: "",
     img: "",
   });
 
@@ -75,22 +75,34 @@ export default function CreateArticle(props: any) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Article</DialogTitle>
         <DialogContent>
-          {CreateArticleFormMetadata.map((metdata, index) => (
-            <TextField
-              key={index}
-              // autoFocus
-              margin="dense"
-              id={metdata.name}
-              label={metdata.name}
-              type={metdata.type}
-              fullWidth
-              value={newData[metdata.dataKey]}
-              onChange={(e) => {
-                handleTextChange(e.target.value, metdata.dataKey);
-              }}
-              // variant="standard"
-            />
-          ))}
+          {CreateArticleFormMetadata.map((metdata, index) => {
+            return metdata.type === "file" ? (
+              <>
+                <div style={{ margin: "15px 0px", color: '#666' }}>
+                  <label>Image</label>
+                </div>
+                <Button variant="contained" component="label">
+                  Upload
+                  <input hidden accept="image/*" multiple type="file" />
+                </Button>
+              </>
+            ) : (
+              <TextField
+                key={index}
+                // autoFocus
+                margin="dense"
+                id={metdata.name}
+                label={metdata.name}
+                type={metdata.type}
+                fullWidth
+                value={newData[metdata.dataKey]}
+                onChange={(e) => {
+                  handleTextChange(e.target.value, metdata.dataKey);
+                }}
+                // variant="standard"
+              />
+            );
+          })}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
