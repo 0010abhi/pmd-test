@@ -71,7 +71,7 @@ export default function BlogCard(props: { data: any; newData: any }) {
         >
           <CardMedia
             component="img"
-            height="140"
+            height="240"
             image="/images/pmd-test-card.png"
             alt="test card image"
           />
