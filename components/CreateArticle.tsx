@@ -64,21 +64,28 @@ export default function CreateArticle(props: any) {
 
   return (
     <div>
-      <Fab
+      {/* TODO: fab button can be implemented. */}
+      {/* <Fab
         className={styles.fab}
         color="secondary"
         aria-label="add"
-        onClick={handleClickOpen}
       >
         <AddIcon />
-      </Fab>
+      </Fab> */}
+      <Button
+        style={{ marginRight: "15px" }}
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
+        Create Article
+      </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Article</DialogTitle>
         <DialogContent>
           {CreateArticleFormMetadata.map((metdata, index) => {
             return metdata.type === "file" ? (
               <>
-                <div style={{ margin: "15px 0px", color: '#666' }}>
+                <div style={{ margin: "15px 0px", color: "#666" }}>
                   <label>Image</label>
                 </div>
                 <Button variant="contained" component="label">

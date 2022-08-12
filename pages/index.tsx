@@ -57,12 +57,17 @@ export default function Home() {
           <div>
             <h1>Articles</h1>
           </div>
-          <div>
-            <span>Dark Theme</span>
-            <Switch
-              checked={darkTheme === "dark" ? true : false}
-              onChange={handleTheme}
-            />
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div>
+              <CreateArticle appendData={appendData} />
+            </div>
+            <div>
+              <span>Dark Theme</span>
+              <Switch
+                checked={darkTheme.name === "dark" ? true : false}
+                onChange={handleTheme}
+              />
+            </div>
           </div>
         </header>
         <main className={styles.main}>
@@ -71,7 +76,6 @@ export default function Home() {
               <BlogCard newData={newData} data={data.firstPageArticles || []} />
             )}
           </div>
-          <CreateArticle appendData={appendData} />
         </main>
       </ThemeContext.Provider>
     </div>
