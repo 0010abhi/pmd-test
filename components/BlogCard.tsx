@@ -1,21 +1,20 @@
-import { useState, useEffect } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
+import { useState } from "react";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import InfiniteScroll from "react-infinite-scroll-component";
+import URLImage from "./URLImage";
 
 export default function BlogCard(props: { data: any }) {
   const [posts, setPosts] = useState(props.data);
+  const [pageNumber, setPageNumber] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   async function getMorePost() {
     const { data } = await client.query({
       query: gql`
         query {
-          retrievePageArticles(page: 1) {
+          retrievePageArticles(page: ${pageNumber}) {
             id
             author
             createdAt
@@ -30,7 +29,13 @@ export default function BlogCard(props: { data: any }) {
       `,
     });
     console.log("data", data);
-    setPosts([...posts, ...data.retrievePageArticles]);
+    console.log("hitting for page", pageNumber + 1);
+    if (data.retrievePageArticles.length > 0) {
+      setPageNumber(pageNumber + 1);
+      setPosts([...posts, ...data.retrievePageArticles]);
+    } else {
+      setHasMore(false);
+    }
   }
 
   return (
@@ -43,8 +48,15 @@ export default function BlogCard(props: { data: any }) {
         endMessage={<h4>Nothing more to show</h4>}
       >
         {(posts || []).map((datum: any, index: number) => (
-          <div style={{ height: "50px" }} key={index}>
-            {datum.id}
+          <div id={datum.id} style={{ height: "50px" }} key={index}>
+            {datum.author}
+            {datum.createdAt}
+            {datum.score}
+            {datum.updatedAt}
+            {datum.title}
+            {datum.text}
+            {datum.type}
+            {/* <URLImage url={datum.url} /> */}
           </div>
         ))}
       </InfiniteScroll>

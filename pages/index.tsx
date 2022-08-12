@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import client from "../apollo-client";
 import BlogCard from "../components/BlogCard";
+import CreateArticle from "../components/CreateArticle";
 
 const Home: NextPage = () => {
   const [data, setdata] = useState<any>([]);
@@ -47,6 +48,7 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           {data && <BlogCard data={data.firstPageArticles || []} />}
         </div>
+        <CreateArticle />
       </main>
 
       <footer className={styles.footer}>
