@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import styles from "../styles/Home.module.css";
 
 export default function BlogCard(props: { data: any; newData: any }) {
   const [posts, setPosts] = useState(props.data);
@@ -62,6 +63,8 @@ export default function BlogCard(props: { data: any; newData: any }) {
       >
         {(posts || []).map((datum: any, index: number) => (
           <Card
+            className={styles.blogCard}
+            raised
             // id={datum.id}
             key={index}
             // sx={{ maxWidth: 345 }}

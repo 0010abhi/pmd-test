@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import styles from "../styles/Home.module.css";
 
 const CreateArticleFormMetadata = [
   {
@@ -63,7 +64,12 @@ export default function CreateArticle(props: any) {
 
   return (
     <div>
-      <Fab color="secondary" aria-label="add" onClick={handleClickOpen}>
+      <Fab
+        className={styles.fab}
+        color="secondary"
+        aria-label="add"
+        onClick={handleClickOpen}
+      >
         <AddIcon />
       </Fab>
       <Dialog open={open} onClose={handleClose}>

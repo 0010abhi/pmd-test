@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import client from "../apollo-client";
 import BlogCard from "../components/BlogCard";
@@ -35,12 +34,13 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <div className={styles.grid}>
-          {data && <BlogCard newData={newData} data={data.firstPageArticles || []} />}
+          {data && (
+            <BlogCard newData={newData} data={data.firstPageArticles || []} />
+          )}
         </div>
-        <CreateArticle appendData={appendData} />
       </main>
-
-      <footer className={styles.footer}>
+      <CreateArticle appendData={appendData} />
+      {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -51,7 +51,7 @@ const Home: NextPage = () => {
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 };
