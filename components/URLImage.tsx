@@ -1,26 +1,13 @@
-import { useState, useEffect } from "react";
 import Image from "next/image";
-const urlMetadata = require("url-metadata");
-// const getMetaData = require('metadata-scraper')
+import { useUrlasImage } from "../hooks/useUrlasImage";
 
 export default function URLImage(props: { url: string }) {
-  useEffect(() => {
-    function getUrlMetadata() {
-      urlMetadata(props.url)
-        .then(
-          (sucRes: any) => {
-            console.log("sucRes", sucRes.image);
-          },
-          (errRes: any) => {
-            console.log("errRes", errRes);
-          }
-        )
-        .catch((error: any) => {
-          console.log("error", error);
-        });
-    }
-    getUrlMetadata();
-  }, []);
+  const img = useUrlasImage(props.url);
+  console.log("image url hook", img);
 
-  return <div></div>;
+  return (
+    <div>
+      {img && <Image src={img} alt="Test" width={500} height={500} />}
+    </div>
+  );
 }

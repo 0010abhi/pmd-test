@@ -8,6 +8,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import styles from "../styles/Home.module.css";
 import { ThemeContext } from "../theme-context";
+import URLImage from "./URLImage";
 
 export default function BlogCard(props: { data: any; newData: any }) {
   const [posts, setPosts] = useState(props.data);
@@ -73,13 +74,17 @@ export default function BlogCard(props: { data: any; newData: any }) {
               key={index}
               // sx={{ maxWidth: 345 }}
             >
-              <CardMedia
-                component="img"
-                height="240"
-                image="/images/pmd-test-card.png"
-                alt="test card image"
-              />
-              {/* <URLImage url={datum.url} /> */}
+              {datum.url ? (
+                <URLImage url={datum.url} />
+              ) : (
+                <CardMedia
+                  component="img"
+                  height="240"
+                  image="/images/pmd-test-card.png"
+                  alt="test card image"
+                />
+              )}
+
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {datum.title}
