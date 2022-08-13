@@ -7,7 +7,7 @@ export default function URLImage(props: { url: string }) {
 
   return (
     <div>
-      {img && <Image src={img} alt="Test" width={500} height={500} />}
+      {img && <Image src={img} alt="Test" width={1200} height={240} />}
     </div>
   );
 }
